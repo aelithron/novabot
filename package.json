@@ -1,0 +1,33 @@
+{
+  "name": "novabot",
+  "version": "1.0.0",
+  "description": "Nova (aka Aelithron)'s personal Discord bot!",
+  "keywords": [
+    "discord",
+    "bot",
+    "discordbot"
+  ],
+  "homepage": "https://github.com/aelithron/novabot#readme",
+  "bugs": {
+    "url": "https://github.com/aelithron/novabot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aelithron/novabot.git"
+  },
+  "license": "MIT",
+  "author": "Aelithron",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "eslint": "^9.28.0"
+  }
+}
