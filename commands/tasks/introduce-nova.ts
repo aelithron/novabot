@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { CommandInteraction, EmbedBuilder, SlashCommandBuilder, TextChannel } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
 	.setName('introduce-nova')
@@ -22,5 +22,8 @@ export async function execute(interaction: CommandInteraction) {
 		.setThumbnail(interaction.user.displayAvatarURL({ size: 1024, forceStatic: false }))
 		.setTimestamp()
 		.setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
-	await interaction.reply({ content: "Hi everyone, I'm NovaBot! My creator, <@1279516012642963528>, asked me to introduce them to you, so here we go!", embeds: [userEmbed] });
+	const introMessage = await interaction.reply({ content: "Hi everyone, I'm NovaBot! My creator, <@1279516012642963528>, asked me to introduce them to you, so here we go!", embeds: [userEmbed] });
+	// logging so I don't forget where I introduced myself with the bot
+	const introLog = interaction.client.guilds.cache.get("1380003469242404975")?.channels.cache.get("1380010466474065983") as TextChannel;
+	introLog.send({ content: `Hey, I just introduced you at ${(await introMessage.fetch()).url}!` });
 };

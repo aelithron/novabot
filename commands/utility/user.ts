@@ -37,7 +37,7 @@ export async function execute(interaction: CommandInteraction) {
     userEmbed.addFields(
       { name: '**Developer Info**', value: '' },
       { name: 'ID', value: user.id, inline: true },
-      { name: 'Flags', value: user.flags ? user.flags.toArray().join(', ') : 'None' }
+      { name: 'Flags', value: (user.flags !== null && user.flags.toArray.length !== 0) ? user.flags.toArray().join(', ') : 'None' }
     );
   }
   await interaction.editReply({ embeds: [userEmbed] });

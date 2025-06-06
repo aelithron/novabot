@@ -1,12 +1,16 @@
-import { InteractionContextType, REST, Routes } from 'discord.js';
+import { REST, Routes } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
 dotenv.config();
 
-const token = process.env.BOT_TOKEN || '';
-const clientId = process.env.CLIENT_ID || '';
+const token = process.env.BOT_TOKEN;
+const clientId = process.env.CLIENT_ID;
+if (!token || !clientId) {
+	console.error("[cmd-deploy] Missing BOT_TOKEN or CLIENT_ID in environment variables.");
+	process.exit(1);
+}
 
 const commands: any[] = [];
 const foldersPath = path.join(path.dirname(fileURLToPath(import.meta.url)), 'commands');

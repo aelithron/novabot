@@ -6,6 +6,11 @@ import { fileURLToPath } from 'url';
 import { ClientWithCommands, Command } from './novabot';
 dotenv.config();
 
+if (!process.env.BOT_TOKEN) {
+  console.error("[bot] Missing BOT_TOKEN in environment variables.");
+  process.exit(1);
+}
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands;
 client.commands = await loadCommands();
 
