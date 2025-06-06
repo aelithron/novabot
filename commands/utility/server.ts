@@ -7,8 +7,7 @@ export const data = new SlashCommandBuilder()
 	.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
 	.addBooleanOption(option =>
 		option.setName('dev')
-			.setDescription('Get extra developer-related information')
-	);
+			.setDescription('Get extra developer-related information'));
 export async function execute(interaction: CommandInteraction) {
 	if (!interaction.guild) return interaction.reply('This command can only be used in a server.');
 	if (interaction.appPermissions.has('EmbedLinks')) {

@@ -5,8 +5,7 @@ export const data = new SlashCommandBuilder()
 	.setDescription("Reminds people of Nova's boundaries.")
 	.addUserOption(option =>
 		option.setName('user')
-			.setDescription('The user to remind of boundaries')
-	);
+			.setDescription('The user to remind of boundaries'));
 export async function execute(interaction: CommandInteraction) {
 	if (interaction.appPermissions.has('EmbedLinks')) {
 		const boundaryEmbed = new EmbedBuilder()

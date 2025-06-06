@@ -3,7 +3,7 @@ import { ClientWithCommands } from '../../novabot';
 
 export const data = new SlashCommandBuilder()
 	.setName('botinfo')
-	.setDescription('Gets info about me!')
+	.setDescription('Gets info about me!');
 export async function execute(interaction: CommandInteraction) {
 	if (interaction.appPermissions.has('EmbedLinks')) {
 		const serverEmbed = new EmbedBuilder()
