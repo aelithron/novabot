@@ -57,5 +57,3 @@ export async function loadCommands(): Promise<Collection<string, Command>> {
   }
   return commands;
 }
-
-export { client };

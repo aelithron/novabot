@@ -21,7 +21,7 @@ for (const folder of commandFolders) {
 		if ('data' in command && 'execute' in command) {
 			commands.push(command.data.toJSON());
 		} else {
-			console.warn(`[bot] The command at ${filePath} is missing a required "data" or "execute" property.`);
+			console.warn(`[cmd-deploy] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
@@ -29,14 +29,14 @@ for (const folder of commandFolders) {
 const rest = new REST().setToken(token);
 (async () => {
 	try {
-		console.log(`[bot] Started refreshing ${commands.length} application (/) commands.`);
+		console.log(`[cmd-deploy] Started refreshing ${commands.length} application (/) commands.`);
 		const data = await rest.put(
 			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
 
-		console.log(`[bot] Successfully reloaded ${(data as any).length} application (/) commands.`);
+		console.log(`[cmd-deploy] Successfully reloaded ${(data as any).length} application (/) commands.`);
 	} catch (error) {
-		console.error("[bot]", error);
+		console.error("[cmd-deploy]", error);
 	}
 })();
