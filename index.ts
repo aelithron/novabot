@@ -16,6 +16,7 @@ client.commands = await loadCommands();
 
 client.once(Events.ClientReady, readyClient => {
   console.log(`[bot] Ready - Logged in (${readyClient.user.tag}) :D`);
+  if (process.argv.includes('--reload-cmds')) import('./deploycmds.ts');
   client.user?.setActivity(`nova's thoughts`, { type: ActivityType.Listening });
 });
 client.login(process.env.BOT_TOKEN);

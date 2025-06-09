@@ -9,4 +9,4 @@ RUN adduser --system --uid 1001 novabot
 COPY --chown=novabot:nodejs . .
 
 USER novabot
-CMD ["./start.sh"]
+CMD ["tsx", "index.ts", "--reload-cmds"]
