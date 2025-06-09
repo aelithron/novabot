@@ -11,7 +11,7 @@ export async function execute(interaction: CommandInteraction) {
     await interaction.editReply({ content: 'nova isn\'t listening to any music.' });
     return;
   }
-  if (!interaction.appPermissions.has('EmbedLinks')) {
+  if (interaction.appPermissions.has('EmbedLinks')) {
     const userEmbed = new EmbedBuilder()
       .setColor(0x7932a8)
       .setTitle(`⋆✦⋆  nova's current song  ⋆✦⋆`)
@@ -19,7 +19,7 @@ export async function execute(interaction: CommandInteraction) {
       .setDescription(`🎧 **${info.title}** - *${info.artist}*\n` +
         `💿 on *${info.album}*\n` +
         'lıllılı.ıllı.ılılıı\n' +
-        `${generateProgressBar(info.position ?? 0, info.duration ?? 0)}`
+        `${info.isPaused ? '⏸' : '▶︎'} ${generateProgressBar(info.position ?? 0, info.duration ?? 0)}`
       )
       .setTimestamp()
       .setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
@@ -29,7 +29,7 @@ export async function execute(interaction: CommandInteraction) {
       `🎧 **${info.title}** - *${info.artist}*\n` +
       `💿 on *${info.album}*\n` +
       'lıllılı.ıllı.ılılıı\n' +
-      `${generateProgressBar(info.position ?? 0, info.duration ?? 0)}`,
+      `${info.isPaused ? '⏸' : '▶︎'} ${generateProgressBar(info.position ?? 0, info.duration ?? 0)}`,
     });
   };
 };

@@ -2,6 +2,7 @@ import { Jellyfin } from "@jellyfin/sdk";
 import { getSessionApi } from "@jellyfin/sdk/lib/utils/api";
 import dotenv from "dotenv";
 import { NowPlayingState } from "../novabot";
+import { PlayerStateInfo } from "@jellyfin/sdk/lib/generated-client/models";
 dotenv.config();
 
 export default async function getInfo(): Promise<NowPlayingState> {
@@ -42,6 +43,7 @@ export default async function getInfo(): Promise<NowPlayingState> {
     album: session.NowPlayingItem.Album,
     duration: session.NowPlayingItem.RunTimeTicks ? session.NowPlayingItem.RunTimeTicks / 10000 : null,
     position: session.PlayState?.PositionTicks ? session.PlayState.PositionTicks / 10000 : null,
+    isPaused: session.PlayState?.IsPaused,
   };
   await api.logout();
   return playingInfo;

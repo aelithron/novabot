@@ -21,4 +21,5 @@ export type NowPlayingState = {
   cover?: string | null;
   duration?: number | null;
   position?: number | null;
+  isPaused?: boolean;
 }
