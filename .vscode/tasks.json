@@ -7,6 +7,13 @@
 			"problemMatcher": [],
 			"label": "npm: start",
 			"detail": "tsx index.ts"
+		},
+		{
+			"type": "npm",
+			"script": "deploycmds",
+			"problemMatcher": [],
+			"label": "npm: deploycmds",
+			"detail": "tsx deploycmds.ts"
 		}
 	]
 }

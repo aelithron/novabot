@@ -21,7 +21,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx index.ts"
+    "start": "tsx index.ts",
+    "deploycmds": "tsx deploycmds.ts"
   },
   "dependencies": {
     "discord.js": "^14.19.3",
