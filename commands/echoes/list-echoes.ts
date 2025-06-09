@@ -1,5 +1,5 @@
 import { CommandInteraction, EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
-import { loadEchoList } from '../../load-echoes';
+import { loadEchoList } from '../../utils/load-echoes';
 
 export const data = new SlashCommandBuilder()
   .setName('list-echoes')

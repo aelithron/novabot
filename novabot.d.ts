@@ -12,3 +12,13 @@ export type EchoEmbed = {
   embed: import('discord.js').EmbedBuilder;
   text: string | null;
 }
+
+export type NowPlayingState = {
+  playing: boolean;
+  title?: string | null;
+  artist?: string | null;
+  album?: string | null;
+  cover?: string | null;
+  duration?: number | null;
+  position?: number | null;
+}

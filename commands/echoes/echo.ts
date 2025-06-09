@@ -1,6 +1,6 @@
 import { AutocompleteInteraction, CommandInteraction, CommandInteractionOptionResolver, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { EchoEmbed } from '../../novabot';
-import { getEchoModule, loadEchoList } from '../../load-echoes';
+import { getEchoModule, loadEchoList } from '../../utils/load-echoes';
 
 export const data = new SlashCommandBuilder()
   .setName('echo')
@@ -35,6 +35,9 @@ export async function execute(interaction: CommandInteraction) {
   }
   if (interaction.appPermissions.has('EmbedLinks') && echoModule.echoEmbed) {
     const echoEmbed: EchoEmbed = echoModule.echoEmbed(interaction);
+    echoEmbed.embed
+      .setTimestamp()
+      .setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
     await interaction.reply({ content: `${pingUser !== null ? `<@${pingUser.id}>` : ''}\n${echoEmbed.text}`, embeds: [echoEmbed.embed] });
   } else {
     const echoMessage: string = echoModule.echoText(interaction);
