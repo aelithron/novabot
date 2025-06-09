@@ -1,3 +1,5 @@
+import { LyricLine } from '@jellyfin/sdk/lib/generated-client/models';
+
 export type ClientWithCommands = import('discord.js').Client & {
   commands: import('discord.js').Collection<string, Command>;
 }
@@ -19,7 +21,9 @@ export type NowPlayingState = {
   artist?: string | null;
   album?: string | null;
   cover?: string | null;
+  lyrics?: LyricLine[] | null;
   duration?: number | null;
   position?: number | null;
   isPaused?: boolean;
+  isSingle?: boolean;
 }

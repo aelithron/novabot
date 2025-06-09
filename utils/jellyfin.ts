@@ -1,8 +1,7 @@
 import { Jellyfin } from "@jellyfin/sdk";
-import { getSessionApi } from "@jellyfin/sdk/lib/utils/api";
+import { getSessionApi, getLyricsApi } from "@jellyfin/sdk/lib/utils/api";
 import dotenv from "dotenv";
 import { NowPlayingState } from "../novabot";
-import { PlayerStateInfo } from "@jellyfin/sdk/lib/generated-client/models";
 dotenv.config();
 
 export default async function getInfo(): Promise<NowPlayingState> {
@@ -36,15 +35,21 @@ export default async function getInfo(): Promise<NowPlayingState> {
   if (sessionsList.data.length === 0) return playingInfo;
   const session = sessionsList.data[0];
   if (!session.NowPlayingItem) return playingInfo;
-  playingInfo = { 
+  playingInfo = {
     playing: true,
-    title: session.NowPlayingItem.Name, 
-    artist: session.NowPlayingItem.AlbumArtist, 
+    title: session.NowPlayingItem.Name,
+    artist: session.NowPlayingItem.AlbumArtist,
     album: session.NowPlayingItem.Album,
     duration: session.NowPlayingItem.RunTimeTicks ? session.NowPlayingItem.RunTimeTicks / 10000 : null,
     position: session.PlayState?.PositionTicks ? session.PlayState.PositionTicks / 10000 : null,
     isPaused: session.PlayState?.IsPaused,
+    isSingle: session.NowPlayingItem.Name === session.NowPlayingItem.Album,
+    cover: `${best.address}Items/${session.NowPlayingItem.ParentId}/Images/Primary`,
   };
+  if (session.NowPlayingItem.HasLyrics) {
+    const lyrics = await getLyricsApi(api).getLyrics({ itemId: session.NowPlayingItem.Id! });
+    playingInfo.lyrics = lyrics.data?.Lyrics || null;
+  }
   await api.logout();
   return playingInfo;
 }
