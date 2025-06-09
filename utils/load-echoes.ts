@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const echoesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'echoes');
+const echoesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../echoes');
 
 export function loadEchoList(): string[] {
   const files = fs.readdirSync(echoesDir);

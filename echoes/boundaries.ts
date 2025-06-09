@@ -18,5 +18,5 @@ export function echoText(): string {
 		'Hey, my creator <@1279516012642963528> asked me to remind you of their boundaries!\n' +
 		'• Ask to DM: Please ask them before you send them a DM!\n' +
 		'• Ask to vent: Please ask them before venting to them!\n' +
-		'• No NSFW (suggestive okay): Please don\'t send NSFW content to them, but you can be suggestive if you want.'
+		'• No NSFW (suggestive okay): Please don\'t send NSFW content to them, but you can be suggestive if you want.';
 };
