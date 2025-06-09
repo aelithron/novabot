@@ -1,12 +1,13 @@
-import { CommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { ApplicationIntegrationType, CommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { ClientWithCommands } from '../../novabot';
 
 export const data = new SlashCommandBuilder()
 	.setName('botinfo')
-	.setDescription('Gets info about me!');
+	.setDescription('Gets some info about me!')
+	.setIntegrationTypes(ApplicationIntegrationType.UserInstall, ApplicationIntegrationType.GuildInstall);
 export async function execute(interaction: CommandInteraction) {
 	if (interaction.appPermissions.has('EmbedLinks')) {
-		const serverEmbed = new EmbedBuilder()
+		const botEmbed = new EmbedBuilder()
 			.setColor(0x7932a8)
 			.setTitle(`${interaction.client.user.username}'s stats!`)
 			.setThumbnail(interaction.client.user.avatarURL({ size: 1024, forceStatic: false }))
@@ -18,9 +19,9 @@ export async function execute(interaction: CommandInteraction) {
 			)
 			.setTimestamp()
 			.setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
-		await interaction.reply({ embeds: [serverEmbed] });
+		await interaction.reply({ embeds: [botEmbed] });
 	} else {
-		await interaction.editReply({
+		await interaction.reply({
 			content: `${interaction.client.user.username}'s stats!\n` +
 				`Uptime: ${formatUptime(process.uptime())}\n` +
 				`Servers: ${interaction.client.guilds.cache.size}\n` +
