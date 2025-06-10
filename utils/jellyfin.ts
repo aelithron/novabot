@@ -17,12 +17,13 @@ export default async function getInfo(): Promise<PlayingState> {
   });
   const apiURL = process.env.JELLYFIN_URL;
   const apiKey = process.env.JELLYFIN_API_KEY;
-  const userName = process.env.JELLYFIN_USER_NAME || 'admin';
+  let userName = process.env.JELLYFIN_USER_NAME;
   if (!apiURL || !apiKey) {
     throw new Error("JELLYFIN_URL and JELLYFIN_API_KEY must be set in the environment variables.");
   }
   if (!userName) {
-    console.warn('JELLYFIN_USER_NAME is not set, defaulting to "admin". If this is incorrect, please set it!');
+    userName = 'admin';
+    console.warn('[bot] JELLYFIN_USER_NAME is not set, defaulting to "admin". If this is incorrect, please set it!');
   }
   const servers = await jellyfin.discovery.getRecommendedServerCandidates(apiURL);
   const best = jellyfin.discovery.findBestServer(servers);

@@ -75,7 +75,7 @@ export async function execute(interaction: CommandInteraction) {
           .setTitle(`⋆✦⋆  nova's current movie  ⋆✦⋆`)
           .setThumbnail(info.cover!)
           .setDescription(`🎬 **${info.title}** (*${state.year}*)\n` +
-            'lıllılı.ıllı.ılılıı\n' +
+            '║▌│█│║▌║││█║▌\n' +
             `${info.isPaused ? '⏸' : '▶️'} ${generateProgressBar(info.position ?? 0, info.duration ?? 0)}`)
           .setTimestamp()
           .setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
@@ -93,11 +93,11 @@ export async function execute(interaction: CommandInteraction) {
         break;
       } else {
         const linkOption = (interaction.options as CommandInteractionOptionResolver).getBoolean('link') !== false && state.imdbId;
-        const links = `[Open - IMDb](https://imdb.com/title/${state.imdbId}) | `
+        const links = `[Open - IMDb](https://imdb.com/title/${state.imdbId})`;
         await interaction.editReply({
           content: '⋆✦⋆  nova\'s current movie  ⋆✦⋆\n' +
             `🎬 **${info.title}** (*${state.year}*)\n` +
-            'lıllılı.ıllı.ılılıı\n' +
+            '║▌│█│║▌║││█║▌\n' +
             `${info.isPaused ? '⏸' : '▶️'} ${generateProgressBar(info.position ?? 0, info.duration ?? 0)}\n` +
             `${linkOption ? links : ''}`
         });
