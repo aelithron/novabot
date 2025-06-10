@@ -1,4 +1,4 @@
-import { LyricLine } from '@jellyfin/sdk/lib/generated-client/models';
+import { BaseItemKind, LyricLine } from '@jellyfin/sdk/lib/generated-client/models';
 
 export type ClientWithCommands = import('discord.js').Client & {
   commands: import('discord.js').Collection<string, Command>;
@@ -15,15 +15,22 @@ export type EchoEmbed = {
   text: string | null;
 }
 
-export type NowPlayingState = {
-  playing: boolean;
+export type PlayingState = {
+  state: MusicState | MovieState | null;
+  type?: BaseItemKind | null;
+  isPaused?: boolean;
   title?: string | null;
-  artist?: string | null;
-  album?: string | null;
   cover?: string | null;
-  lyrics?: LyricLine[] | null;
   duration?: number | null;
   position?: number | null;
-  isPaused?: boolean;
+}
+export type MusicState = {
+  artist?: string | null;
+  album?: string | null;
+  lyrics?: LyricLine[] | null;
   isSingle?: boolean;
+}
+export type MovieState = {
+  year?: string | null;
+  imdbId?: string | null;
 }

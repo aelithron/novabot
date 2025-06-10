@@ -1,10 +1,10 @@
 import { Jellyfin } from "@jellyfin/sdk";
 import { getSessionApi, getLyricsApi } from "@jellyfin/sdk/lib/utils/api";
 import dotenv from "dotenv";
-import { NowPlayingState } from "../novabot";
+import { MovieState, MusicState, PlayingState } from "../novabot";
 dotenv.config();
 
-export default async function getInfo(): Promise<NowPlayingState> {
+export default async function getInfo(): Promise<PlayingState> {
   const jellyfin = new Jellyfin({
     clientInfo: {
       name: 'NovaBot',
@@ -31,24 +31,40 @@ export default async function getInfo(): Promise<NowPlayingState> {
   const sessionsList = await getSessionApi(api).getSessions({ activeWithinSeconds: 30 });
   sessionsList.data.filter(session => session.UserName === userName);
 
-  let playingInfo: NowPlayingState = { playing: false };
+  let playingInfo: PlayingState = { state: null };
   if (sessionsList.data.length === 0) return playingInfo;
   const session = sessionsList.data[0];
   if (!session.NowPlayingItem) return playingInfo;
+
   playingInfo = {
-    playing: true,
-    title: session.NowPlayingItem.Name,
-    artist: session.NowPlayingItem.AlbumArtist,
-    album: session.NowPlayingItem.Album,
-    duration: session.NowPlayingItem.RunTimeTicks ? session.NowPlayingItem.RunTimeTicks / 10000 : null,
+    state: null,
+    type: session.NowPlayingItem.Type,
+    title: session.NowPlayingItem.Name || null,
+    isPaused: session.PlayState?.IsPaused || false,
     position: session.PlayState?.PositionTicks ? session.PlayState.PositionTicks / 10000 : null,
-    isPaused: session.PlayState?.IsPaused,
-    isSingle: session.NowPlayingItem.Name === session.NowPlayingItem.Album,
+    duration: session.NowPlayingItem.RunTimeTicks ? session.NowPlayingItem.RunTimeTicks / 10000 : null,
     cover: `${best.address}Items/${session.NowPlayingItem.ParentId}/Images/Primary`,
-  };
-  if (session.NowPlayingItem.HasLyrics) {
-    const lyrics = await getLyricsApi(api).getLyrics({ itemId: session.NowPlayingItem.Id! });
-    playingInfo.lyrics = lyrics.data?.Lyrics || null;
+  }
+  switch (session.NowPlayingItem.Type) {
+    case 'Audio':
+      playingInfo.state = {
+        artist: session.NowPlayingItem.AlbumArtist,
+        album: session.NowPlayingItem.Album,
+        isSingle: session.NowPlayingItem.Name === session.NowPlayingItem.Album,
+      } as MusicState;
+      if (session.NowPlayingItem.HasLyrics) {
+        const lyrics = await getLyricsApi(api).getLyrics({ itemId: session.NowPlayingItem.Id! });
+        (playingInfo.state! as MusicState).lyrics = lyrics.data?.Lyrics || null;
+      }
+      break;
+    case 'Movie':
+      playingInfo.state = {
+        year: session.NowPlayingItem.ProductionYear,
+        imdbId: session.NowPlayingItem.ProviderIds?.Imdb || null,
+      } as MovieState;
+      break;
+    default:
+      break;
   }
   await api.logout();
   return playingInfo;
