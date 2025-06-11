@@ -16,7 +16,7 @@ export type EchoEmbed = {
 }
 
 export type PlayingState = {
-  state: MusicState | MovieState | null;
+  state: MusicState | MovieState | null | "failed-connect";
   type?: BaseItemKind | null;
   isPaused?: boolean;
   title?: string | null;

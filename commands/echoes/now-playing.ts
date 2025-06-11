@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandBuilder, EmbedBuilder, ButtonStyle, ButtonBuilder, ActionRowBuilder, CommandInteractionOptionResolver } from "discord.js";
+import { CommandInteraction, SlashCommandBuilder, EmbedBuilder, ButtonStyle, ButtonBuilder, ActionRowBuilder, CommandInteractionOptionResolver, MessageFlags } from "discord.js";
 import getInfo from "../../utils/jellyfin";
 import { LyricLine } from "@jellyfin/sdk/lib/generated-client/models";
 import { MovieState, MusicState, PlayingState } from "../../novabot";
@@ -15,8 +15,12 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: CommandInteraction) {
   await interaction.deferReply();
   const info = await getInfo();
-  if (!info.state) {
+  if (!info.state || info.state === "failed-connect") {
     await interaction.editReply({ content: 'nova isn\'t playing anything right now.' });
+    if (info.state === "failed-connect") {
+      console.error("[bot] Failed to connect to Jellyfin server.");
+      await interaction.followUp({ content: 'i couldn\'t find your Jellyfin server!', flags: MessageFlags.Ephemeral });
+    }
     return;
   }
   let state: PlayingState["state"] = info.state;

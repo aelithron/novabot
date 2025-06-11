@@ -1,0 +1,28 @@
+{
+  "botToken": "(CHANGEME)",
+  "clientId": "(CHANGEME)",
+  "owner": {
+    "id": 1279516012642963528,
+    "name": "nova",
+    "pronouns": {
+      "subjective": "they",
+      "objective": "them",
+      "possessive_determiner": "their",
+      "possessive_pronoun": "theirs",
+      "reflexive": "themselves"
+    }
+  },
+  "introduction": {
+    "boundaries": [
+      "Ask to DM",
+      "Ask to vent",
+      "No NSFW (suggestive okay)"
+    ]
+  },
+  "features": {
+    "media": true,
+    "journaling": true,
+    "echoes": true,
+    "weather": false
+  }
+}
