@@ -13,6 +13,7 @@ export type Command = {
 export type EchoEmbed = {
   embed: import('discord.js').EmbedBuilder;
   text: string | null;
+  components?: import('discord.js').ActionRowBuilder<import('discord.js').ButtonBuilder>[] | null;
 }
 
 export type PlayingState = {

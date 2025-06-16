@@ -38,7 +38,11 @@ export async function execute(interaction: CommandInteraction) {
     echoEmbed.embed
       .setTimestamp()
       .setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
-    await interaction.reply({ content: `${pingUser !== null ? `<@${pingUser.id}>` : ''}\n${echoEmbed.text}`, embeds: [echoEmbed.embed] });
+    await interaction.reply({ 
+      content: `${pingUser !== null ? `<@${pingUser.id}>` : ''}\n${echoEmbed.text}`, 
+      embeds: [echoEmbed.embed], 
+      ...(echoEmbed.components ? { components: echoEmbed.components } : {})
+    });
   } else {
     const echoMessage: string = echoModule.echoText(interaction);
     await interaction.reply({ content: `${pingUser !== null ? `<@${pingUser.id}>` : ''}\n${echoMessage}` });
