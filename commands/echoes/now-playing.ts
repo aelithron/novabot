@@ -32,7 +32,7 @@ export async function execute(interaction: CommandInteraction) {
         const userEmbed = new EmbedBuilder()
           .setColor(0x7932a8)
           .setTitle(`⋆✦⋆  nova's current song  ⋆✦⋆`)
-          .setThumbnail(info.cover!)
+          .setImage(info.cover!)
           .setDescription(`🎧 **${info.title}** - *${state.artist}*\n` +
             (!state.isSingle ? `💿 on *${state.album}*\n` : '') +
             ((lyricsOption && state.lyrics) ? `${getLyric(state.lyrics)}\n` : '') +
