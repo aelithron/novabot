@@ -2,7 +2,7 @@ import { Client, Collection, Events, GatewayIntentBits, ActivityType, MessageFla
 import fs from 'node:fs';
 import path from 'node:path';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { ClientWithCommands, Command } from './novabot';
 dotenv.config();
 
@@ -81,7 +81,7 @@ export async function loadCommands(): Promise<Collection<string, Command>> {
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
     for (const file of commandFiles) {
       const filePath = path.join(commandsPath, file);
-      const command = await import(filePath);
+      const command = await import(pathToFileURL(filePath).href);
       if ('data' in command && 'execute' in command) {
         commands.set(command.data.name, command);
       } else {
