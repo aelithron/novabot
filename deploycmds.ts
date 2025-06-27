@@ -2,7 +2,7 @@ import { REST, Routes } from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 dotenv.config();
 
 const token = process.env.BOT_TOKEN;
@@ -21,7 +21,7 @@ for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
 	for (const file of commandFiles) {
 		const filePath = path.join(commandsPath, file);
-		const command = await import(filePath);
+		const command = await import(pathToFileURL(filePath).href);
 		if ('data' in command && 'execute' in command) {
 			commands.push(command.data.toJSON());
 		} else {
