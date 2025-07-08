@@ -14,14 +14,14 @@ export function echoEmbed(interaction: CommandInteraction): EchoEmbed {
     fields.push({ name: key, value: value });
   }
   embed.addFields(fields);
-  return { embed, text: `Hi everyone, I'm ${interaction.client.user.displayName}! ${config.owner.name} (<@${config.owner.id}>) asked me to introduce them to you, so here we go!` };
+  return { embed, text: `Hi everyone, I'm ${interaction.client.user.displayName}! ${config.owner.name} (<@${config.owner.id}>) asked me to introduce ${config.owner.pronouns.objective} to you, so here we go!` };
 }
 export function echoText(interaction: CommandInteraction): string {
   let fields: string = '';
   for (const [key, value] of Object.entries(config.introduction)) {
     fields = fields + `✧˖° ${key} ~ ${value}\n`
   }
-  return `Hi everyone, I'm ${interaction.client.user.displayName}! ${config.owner.name} (<@${config.owner.id}>) asked me to introduce them to you, so here we go!\n` +
+  return `Hi everyone, I'm ${interaction.client.user.displayName}! ${config.owner.name} (<@${config.owner.id}>) asked me to introduce ${config.owner.pronouns.objective} to you, so here we go!\n` +
     `⋇⋆✦⋆⋇   **${config.owner.name}**   ⋇⋆✦⋆⋇\n` + fields;
 };
 

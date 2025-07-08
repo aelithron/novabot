@@ -2,6 +2,9 @@ import { CommandInteraction, SlashCommandBuilder, EmbedBuilder, ButtonStyle, But
 import getInfo from "../../utils/jellyfin";
 import { LyricLine } from "@jellyfin/sdk/lib/generated-client/models";
 import { MovieState, MusicState, PlayingState } from "../../novabot";
+import getConfig from "../../utils/config";
+
+const config = getConfig();
 
 export const data = new SlashCommandBuilder()
   .setName('now-playing')
@@ -16,7 +19,7 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.deferReply();
   const info = await getInfo();
   if (!info.state || info.state === "failed-connect") {
-    await interaction.editReply({ content: 'nova isn\'t playing anything right now.' });
+    await interaction.editReply({ content: `${config.owner.name} isn't playing anything right now.` });
     if (info.state === "failed-connect") {
       console.error("[bot] Failed to connect to Jellyfin server.");
       await interaction.followUp({ content: 'i couldn\'t find your Jellyfin server!', flags: MessageFlags.Ephemeral });
@@ -31,7 +34,7 @@ export async function execute(interaction: CommandInteraction) {
       if (interaction.appPermissions.has('EmbedLinks')) {
         const userEmbed = new EmbedBuilder()
           .setColor(0x7932a8)
-          .setTitle(`⋆✦⋆  nova's current song  ⋆✦⋆`)
+          .setTitle(`⋆✦⋆  ${config.owner.name}'s current song  ⋆✦⋆`)
           .setImage(info.cover!)
           .setDescription(`🎧 **${info.title}** - *${state.artist}*\n` +
             (!state.isSingle ? `💿 on *${state.album}*\n` : '') +
@@ -61,7 +64,7 @@ export async function execute(interaction: CommandInteraction) {
         const links = `[Open - YouTube](https://youtube.com/results?search_query=${state.artist?.replace(/ /g, '+')}+${info.title?.replace(/ /g, '+')}) | ` +
           `[Open - Spotify](https://open.spotify.com/search/${state.artist?.replace(/ /g, '%20')}%20${info.title?.replace(/ /g, '%20')})`
         await interaction.editReply({
-          content: '⋆✦⋆  nova\'s current song  ⋆✦⋆\n' +
+          content: `⋆✦⋆  ${config.owner.name}'s current song  ⋆✦⋆\n` +
             `🎧 **${info.title}** - *${state.artist}*\n` +
             (!state.isSingle ? `💿 on *${state.album}*\n` : '') +
             ((lyricsOption && state.lyrics) ? `${getLyric(state.lyrics)}\n` : '') +
@@ -76,7 +79,7 @@ export async function execute(interaction: CommandInteraction) {
       if (interaction.appPermissions.has('EmbedLinks')) {
         const userEmbed = new EmbedBuilder()
           .setColor(0x7932a8)
-          .setTitle(`⋆✦⋆  nova's current movie  ⋆✦⋆`)
+          .setTitle(`⋆✦⋆  ${config.owner.name}'s current movie  ⋆✦⋆`)
           .setThumbnail(info.cover!)
           .setDescription(`🎬 **${info.title}** (*${state.year}*)\n` +
             '║▌│█│║▌║││█║▌\n' +
@@ -99,7 +102,7 @@ export async function execute(interaction: CommandInteraction) {
         const linkOption = (interaction.options as CommandInteractionOptionResolver).getBoolean('link') !== false && state.imdbId;
         const links = `[Open - IMDb](https://imdb.com/title/${state.imdbId})`;
         await interaction.editReply({
-          content: '⋆✦⋆  nova\'s current movie  ⋆✦⋆\n' +
+          content: `⋆✦⋆  ${config.owner.name}'s Current Movie  ⋆✦⋆\n` +
             `🎬 **${info.title}** (*${state.year}*)\n` +
             '║▌│█│║▌║││█║▌\n' +
             `${info.isPaused ? '⏸' : '▶️'} ${generateProgressBar(info.position ?? 0, info.duration ?? 0)}\n` +
@@ -108,8 +111,8 @@ export async function execute(interaction: CommandInteraction) {
         break;
       }
     default:
-      await interaction.editReply({ content: 'nova is playing something right now, but i haven\'t been taught to understand it 😢' });
-      console.log(`Unknown playing type: ${info.type}`);
+      await interaction.editReply({ content: `${config.owner.name} is playing something, but I haven't been taught to understand it 😢` });
+      console.warn(`[bot] Unknown playing type: ${info.type}`);
       return;
   };
 };
@@ -137,6 +140,10 @@ function generateProgressBar(positionMs: number, durationMs: number): string {
 
 function getLyric(lines: LyricLine[]): string | null {
   if (lines.length === 0) return null;
-  const line = lines[Math.floor(Math.random() * lines.length)];
+  let line: LyricLine;
+  for (;;) {
+    line = lines[Math.floor(Math.random() * lines.length)];
+    if (line.Text != undefined && line.Text != '') break;
+  }
   return `♪ *${line.Text}*`;
 }

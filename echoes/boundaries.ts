@@ -1,22 +1,26 @@
-import { EmbedBuilder } from 'discord.js';
+import { APIEmbedField, EmbedBuilder, RestOrArray } from 'discord.js';
 import { EchoEmbed } from '../novabot';
+import getConfig from '../utils/config';
+
+const config = getConfig();
 
 export function echoEmbed(): EchoEmbed {
 	const embed = new EmbedBuilder()
 		.setColor(0x7932a8)
-		.setTitle("⋆✦⋆ nova's boundaries ⋆✦⋆")
-		.setDescription(`Hey, my creator <@1279516012642963528> asked me to remind you of their boundaries!`)
-		.setFields(
-			{ name: '• Ask to DM', value: 'Please ask them before you send them a DM!' },
-			{ name: '• Ask to vent', value: 'Please ask them before venting to them!' },
-			{ name: '• No NSFW (suggestive okay)', value: "Please don't send NSFW content to them, but you can be suggestive if you want." },
-		)
+		.setTitle(`⋆✦⋆ ${config.owner.name}'s Boundaries ⋆✦⋆`)
+		.setDescription(`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.objective} boundaries!`)
+	const fields: RestOrArray<APIEmbedField> = [];
+  for (const [key, value] of Object.entries(config.boundaries)) {
+    fields.push({ name: key, value: value });
+  }
+  embed.addFields(fields);
 	return { embed, text: "" };
 }
 export function echoText(): string {
-	return '⋆✦⋆ nova\'s boundaries ⋆✦⋆\n' +
-		'Hey, my creator <@1279516012642963528> asked me to remind you of their boundaries!\n' +
-		'• Ask to DM: Please ask them before you send them a DM!\n' +
-		'• Ask to vent: Please ask them before venting to them!\n' +
-		'• No NSFW (suggestive okay): Please don\'t send NSFW content to them, but you can be suggestive if you want.';
+	let fields: string = '';
+  for (const [key, value] of Object.entries(config.boundaries)) {
+    fields = fields + `• ${key}: ${value}\n`
+  }
+	return `⋆✦⋆ ${config.owner.name}'s Boundaries ⋆✦⋆\n` +
+		`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.objective} boundaries!\n` + fields;
 };

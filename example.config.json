@@ -25,9 +25,9 @@
     "𝐌𝐮𝐬𝐢𝐜": "Derivakat, AJR, Cavetown",
     "𝐄𝐱𝐭𝐫𝐚 𝐍𝐨𝐭𝐞𝐬": "I have ADHD and social anxiety, so I may not be very talkative!"
   },
-  "boundaries": [
-    "Ask to DM",
-    "Ask to vent",
-    "No NSFW (suggestive okay)"
-  ]
+  "boundaries": {
+    "Ask to DM": "Please ask them before you send them a DM!",
+    "Ask to vent": "Please ask them before venting to them!",
+    "No NSFW (suggestive okay)": "Please don't send NSFW content to them, but you can be suggestive if you want."
+  }
 }

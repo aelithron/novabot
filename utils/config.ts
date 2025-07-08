@@ -19,7 +19,7 @@ const ConfigSchema = z.object({
     echoes: z.boolean()
   }),
   introduction: z.record(z.string(), z.string()),
-  boundaries: z.string().array(),
+  boundaries: z.record(z.string(), z.string()),
 });
 
 export default function getConfig(): Config {

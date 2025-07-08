@@ -54,5 +54,5 @@ export type Config = {
     echoes: boolean
   }
   introduction: { [key: string]: string }
-  boundaries: string[]
+  boundaries: { [key: string]: string }
 }

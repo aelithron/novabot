@@ -4,6 +4,7 @@ import path from 'node:path';
 import dotenv from 'dotenv';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { ClientWithCommands, Command } from './novabot';
+import getConfig from './utils/config.ts';
 dotenv.config();
 
 if (!process.env.BOT_TOKEN) {
@@ -13,11 +14,12 @@ if (!process.env.BOT_TOKEN) {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands;
 client.commands = await loadCommands();
+const config = getConfig();
 
 client.once(Events.ClientReady, readyClient => {
   console.log(`[bot] Ready - Logged in (${readyClient.user.tag}) :D`);
   if (process.argv.includes('--reload-cmds')) import('./deploycmds.ts');
-  client.user?.setActivity(`nova's thoughts`, { type: ActivityType.Listening });
+  client.user?.setActivity(`${config.owner.name}'s thoughts`, { type: ActivityType.Listening });
 });
 client.login(process.env.BOT_TOKEN);
 
@@ -55,18 +57,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
   } else if (interaction.isButton()) {
 		if (interaction.customId === "send-cake") {
-      await interaction.reply({ content: 'You sent a birthday cake to <@1279516012642963528>!', flags: MessageFlags.Ephemeral });
-      const personalGuild = interaction.client.guilds.cache.get('1380003469242404975');
-      if (!personalGuild) {
-        console.error("[bot] Personal guild not found. Make sure the bot is in the correct guild.");
-        return;
-      }
-      const cakeChannel = personalGuild.channels.cache.get('1384302020134965249');
-      if (!cakeChannel || !cakeChannel.isTextBased()) {
-        console.error("[bot] Cake channel not found or is not a text channel.");
-        return;
-      }
-      await cakeChannel.send({ content: `<@${interaction.user.id}> sent a birthday cake to you, <@1279516012642963528>! 🎂` });
+      await interaction.reply({ content: `<@${interaction.user.id}> sent a birthday cake to you, <@${config.owner.id}>! 🎂` });
     } else return;
 	}
 });

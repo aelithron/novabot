@@ -19,11 +19,11 @@ export default async function getInfo(): Promise<PlayingState> {
   const apiKey = process.env.JELLYFIN_API_KEY;
   let userName = process.env.JELLYFIN_USER_NAME;
   if (!apiURL || !apiKey) {
-    throw new Error("JELLYFIN_URL and JELLYFIN_API_KEY must be set in the environment variables.");
+    throw new Error("[jellyfin] JELLYFIN_URL and JELLYFIN_API_KEY must be set in the environment variables.");
   }
   if (!userName) {
     userName = 'admin';
-    console.warn('[bot] JELLYFIN_USER_NAME is not set, defaulting to "admin". If this is incorrect, please set it!');
+    console.warn('[jellyfin] JELLYFIN_USER_NAME is not set, defaulting to "admin". If this is incorrect, please set it in your environment variables!');
   }
   const servers = await jellyfin.discovery.getRecommendedServerCandidates(apiURL);
   const best = jellyfin.discovery.findBestServer(servers);
