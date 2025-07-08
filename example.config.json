@@ -12,17 +12,15 @@
   },
   "features": {
     "media": true,
-    "echoes": true,
-    "weather": false
+    "echoes": true
   },
   "introduction": {
-    "fields": {
-      
-    },
-    "boundaries": [
-      "Ask to DM",
-      "Ask to vent",
-      "No NSFW (suggestive okay)"
-    ]
-  }
+    "Test": "abc",
+    "Test2": "xyz"
+  },
+  "boundaries": [
+    "Ask to DM",
+    "Ask to vent",
+    "No NSFW (suggestive okay)"
+  ]
 }

@@ -52,13 +52,12 @@ export type Config = {
   features: {
     media: boolean
     echoes: boolean
-    weather: boolean
   }
   introduction: {
-    boundaries: string[]
     fields: {
       name: string
       value: string
     }[]
   }
+  boundaries: string[]
 }

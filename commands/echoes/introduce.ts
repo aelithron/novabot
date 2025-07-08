@@ -1,8 +1,8 @@
 import { CommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder, TextChannel } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
-	.setName('introduce-nova')
-	.setDescription('Introduces Nova, my creator, to the current channel.');
+	.setName('introduce')
+	.setDescription("I'll introduce you to the current channel!");
 export async function execute(interaction: CommandInteraction) {
 	const age = Math.floor((Date.now() - 1276693200000) / (1000 * 60 * 60 * 24 * 365.25));
 	let introMessage: InteractionResponse<boolean>;
@@ -24,7 +24,7 @@ export async function execute(interaction: CommandInteraction) {
 			.setThumbnail(interaction.user.displayAvatarURL({ size: 1024, forceStatic: false }))
 			.setTimestamp()
 			.setFooter({ text: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() });
-		introMessage = await interaction.reply({ content: "Hi everyone, I'm NovaBot! My creator, <@1279516012642963528>, asked me to introduce them to you, so here we go!", embeds: [userEmbed] });
+		introMessage = await interaction.reply({ content: "", embeds: [userEmbed] });
 	} else {
 		introMessage = await interaction.reply({
 			content: "Hi everyone, I'm NovaBot! My creator, <@1279516012642963528>, asked me to introduce them to you, so here we go!" +
@@ -41,7 +41,7 @@ export async function execute(interaction: CommandInteraction) {
 		});
 
 	}
-	// logging so I don't forget where I introduced myself with the bot
-	const introLog = interaction.client.guilds.cache.get("1380003469242404975")?.channels.cache.get("1380010466474065983") as TextChannel;
-	introLog.send({ content: `Hey, I just introduced you at ${(await introMessage.fetch()).url}!` });
+	// this isn't used anymore to make the bot less complex, build a version of the bot with this included if you want!
+	//const introLog = interaction.client.guilds.cache.get("1380003469242404975")?.channels.cache.get("1380010466474065983") as TextChannel;
+	//introLog.send({ content: `Hey, I just introduced you at ${(await introMessage.fetch()).url}!` });
 };

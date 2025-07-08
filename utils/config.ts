@@ -31,11 +31,12 @@ const ConfigSchema = z.object({
 });
 
 export default function getConfig(): Config {
-  let validatedConfig;
+  let validatedConfig: Config;
   try {
-    validatedConfig = ConfigSchema.parse(config);
+    validatedConfig = ConfigSchema.parse(config) as Config;
   } catch (e) {
     console.error(`[config] Error loading your config: ${e}`);
+    process.exit(1);
   }
   return validatedConfig;
 };
