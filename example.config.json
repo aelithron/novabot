@@ -1,9 +1,7 @@
 {
-  "botToken": "(CHANGEME)",
-  "clientId": "(CHANGEME)",
   "owner": {
-    "id": 1279516012642963528,
-    "name": "nova",
+    "id": "1279516012642963528",
+    "name": "Nova",
     "pronouns": {
       "subjective": "they",
       "objective": "them",
@@ -12,17 +10,19 @@
       "reflexive": "themselves"
     }
   },
+  "features": {
+    "media": true,
+    "echoes": true,
+    "weather": false
+  },
   "introduction": {
+    "fields": {
+      
+    },
     "boundaries": [
       "Ask to DM",
       "Ask to vent",
       "No NSFW (suggestive okay)"
     ]
-  },
-  "features": {
-    "media": true,
-    "journaling": true,
-    "echoes": true,
-    "weather": false
   }
 }

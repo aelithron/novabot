@@ -1,4 +1,5 @@
 import { BaseItemKind, LyricLine } from '@jellyfin/sdk/lib/generated-client/models';
+import { Snowflake } from 'discord.js';
 
 export type ClientWithCommands = import('discord.js').Client & {
   commands: import('discord.js').Collection<string, Command>;
@@ -34,4 +35,30 @@ export type MusicState = {
 export type MovieState = {
   year?: string | null;
   imdbId?: string | null;
+}
+
+export type Config = {
+  owner: {
+    id: Snowflake
+    name: string
+    pronouns: {
+      subjective: string
+      objective: string
+      possessive_determiner: string
+      possessive_pronoun: string
+      reflexive: string
+    }
+  }
+  features: {
+    media: boolean
+    echoes: boolean
+    weather: boolean
+  }
+  introduction: {
+    boundaries: string[]
+    fields: {
+      name: string
+      value: string
+    }[]
+  }
 }
