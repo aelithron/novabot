@@ -7,8 +7,7 @@
       "objective": "them",
       "possessive_determiner": "their",
       "possessive_pronoun": "theirs",
-      "reflexive": "themselves",
-      "useAre": true
+      "reflexive": "themselves"
     }
   },
   "features": {

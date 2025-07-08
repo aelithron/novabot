@@ -11,7 +11,8 @@ Project coded for Hack Club's [Shipwrecked](https://shipwrecked.hackclub.com).
 Setting up NovaBot is simple! However, due to the bot's personalization, you must run your own personal instance of the bot.
 You will have to complete the following steps no matter how you deploy it:
 1. Get a Discord bot! This can be easily done by following [this guide](https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot). You will need the Bot Token and Application ID, save them somewhere! You will need them later. You don't need a server ID, though.
-2. Use one of the following options to set up your bot. Once you're done there, go to the "Configuring" section!
+2. I **heavily** suggest disabling `Public Bot` on the Bot tab of the developer portal, as otherwise people can run commands on your bot and potentially see things you don't want (say, if a title in your Jellyfin might dox you).
+3. Use one of the following options to set up your bot. Once you're done there, go to the "Configuring" section!
 ### Docker (Recommended)
 Docker is the easiest way to run the bot!
 #### With Compose
@@ -61,4 +62,5 @@ Want to use the `/now-playing` command? You must have a Jellyfin server for this
 3. In that menu, click the + button and enter your bot's name. It will give you an API key, copy it.
 4. Go to your setup command/script/file (depending on how you set up the bot). Uncomment the lines labeled as `JELLYFIN_API_KEY` and `JELLYFIN_URL`.
 5. Enter in the API key from step 3 and enter your server's URL in the correct fields.
-6. Finally, open your `config.json` and set `features/media` to `true`. Restart your bot, and Jellyfin is now working!
+6. If your Jellyfin username is anything other than `admin` (or you don't want the bot spamming warnings), set the `JELLYFIN_USER_NAME` environment variable to your username.
+7. Finally, open your `config.json` and set `features/media` to `true`. Restart your bot, and Jellyfin is now working!

@@ -38,7 +38,7 @@ export async function execute(interaction: CommandInteraction) {
       if (interaction.appPermissions.has('EmbedLinks')) {
         const userEmbed = new EmbedBuilder()
           .setColor(0x7932a8)
-          .setTitle(`⋆✦⋆  ${config.owner.name}'s current song  ⋆✦⋆`)
+          .setTitle(`⋆✦⋆  ${config.owner.name}'s Current Song  ⋆✦⋆`)
           .setImage(info.cover!)
           .setDescription(`🎧 **${info.title}** - *${state.artist}*\n` +
             (!state.isSingle ? `💿 on *${state.album}*\n` : '') +
@@ -68,7 +68,7 @@ export async function execute(interaction: CommandInteraction) {
         const links = `[Open - YouTube](https://youtube.com/results?search_query=${state.artist?.replace(/ /g, '+')}+${info.title?.replace(/ /g, '+')}) | ` +
           `[Open - Spotify](https://open.spotify.com/search/${state.artist?.replace(/ /g, '%20')}%20${info.title?.replace(/ /g, '%20')})`
         await interaction.editReply({
-          content: `⋆✦⋆  ${config.owner.name}'s current song  ⋆✦⋆\n` +
+          content: `⋆✦⋆  ${config.owner.name}'s Current Song  ⋆✦⋆\n` +
             `🎧 **${info.title}** - *${state.artist}*\n` +
             (!state.isSingle ? `💿 on *${state.album}*\n` : '') +
             ((lyricsOption && state.lyrics) ? `${getLyric(state.lyrics)}\n` : '') +
@@ -83,7 +83,7 @@ export async function execute(interaction: CommandInteraction) {
       if (interaction.appPermissions.has('EmbedLinks')) {
         const userEmbed = new EmbedBuilder()
           .setColor(0x7932a8)
-          .setTitle(`⋆✦⋆  ${config.owner.name}'s current movie  ⋆✦⋆`)
+          .setTitle(`⋆✦⋆  ${config.owner.name}'s Current Movie  ⋆✦⋆`)
           .setThumbnail(info.cover!)
           .setDescription(`🎬 **${info.title}** (*${state.year}*)\n` +
             '║▌│█│║▌║││█║▌\n' +
