@@ -19,7 +19,19 @@ Docker is the easiest way to run the bot!
 Here's a simple Compose file for the bot.
 Make sure to add your token and app ID into the marked places!
 ```yaml
-
+services:
+  novabot:
+    image: ghcr.io/aelithron/novabot:latest
+    container_name: novabot
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: (insert Bot Token here)
+      CLIENT_ID: (insert Application ID here)
+      #JELLYFIN_API_KEY: "(insert Jellyfin API key here)"
+      #JELLYFIN_URL: "(insert Jellyfin URL here)"
+      #JELLYFIN_USER_NAME: "admin"
+    volumes:
+      - ./config.json:/bot/config.json
 ```
 Once this file is created, run `docker compose up -d`.
 #### With `docker run`
@@ -27,6 +39,16 @@ An alternative is a Docker run command.
 Note that this is harder to change if you want to alter the command later!
 Make sure to add your token and app ID into the marked places!
 ```sh
+docker run -d \
+  --name novabot \
+  --restart unless-stopped \
+  -e BOT_TOKEN="(insert Bot Token here)" \
+  -e CLIENT_ID="(insert Application ID here)" \
+  # -e JELLYFIN_API_KEY="(insert Jellyfin API key here)" \
+  # -e JELLYFIN_URL="(insert Jellyfin URL here)" \
+  # -e JELLYFIN_USER_NAME="admin" \
+  -v "$(pwd)/config.json:/bot/config.json" \
+  ghcr.io/aelithron/novabot:latest
 
 ```
 ### Other Installation Methods
