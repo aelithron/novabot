@@ -34,8 +34,8 @@ const ConfigSchema = z.object({
 });
 
 export default function getConfig(): Config {
-  const configPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config.json');
-  const examplePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../example.config.json');
+  const configPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config/config.json');
+  const examplePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config/example.config.json');
   if (!fs.existsSync(configPath)) {
     console.warn('[config] Copying example config...');
     fs.copyFileSync(examplePath, configPath);

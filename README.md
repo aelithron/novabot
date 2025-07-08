@@ -31,7 +31,7 @@ services:
       #JELLYFIN_URL: "(insert Jellyfin URL here)"
       #JELLYFIN_USER_NAME: "admin"
     volumes:
-      - ./config.json:/bot/config.json
+      - ./config:/bot/config
 ```
 Once this file is created, run `docker compose up -d`.
 #### With `docker run`
@@ -47,7 +47,7 @@ docker run -d \
   # -e JELLYFIN_API_KEY="(insert Jellyfin API key here)" \
   # -e JELLYFIN_URL="(insert Jellyfin URL here)" \
   # -e JELLYFIN_USER_NAME="admin" \
-  -v "$(pwd)/config.json:/bot/config.json" \
+  -v "$(pwd)/config:/bot/config" \
   ghcr.io/aelithron/novabot:latest
 
 ```
@@ -62,7 +62,7 @@ Some basic tips for setting it up:
 - I recommend auto restarting when crashed, since many things can technically crash the bot and you don't want it to stay broken.
 ## Configuring
 Now, it's time to configure your bot! This is the final required step.
-In the original setup guide, your bot should have created a file called config.json with a bunch of options.
+In the original setup guide, your bot should have created a file called `config.json` in the `config` folder, with a bunch of options.
 Here, you get to personalize the bot! Some options are documented below.
 ### Pronouns
 This lets you tell the bot how to refer to you! You may know how to enter your pronouns here, but if not, no problem! You can get the options/info you need from [this link](https://en.pronouns.page/pronouns).
