@@ -1,7 +1,15 @@
-import { Config } from '../novabot';
-import config from '../config.json'
-import { z } from 'zod'
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { z, ZodType } from 'zod';
+import type { Config, GMTOffset } from '../novabot.js';
 
+const gmtOffsetRegex = /^[-+](?:0?\d(?:\.5|\.75)?|1[0-3](?:\.5)?|14)$/;
+const gmtOffsetSchema = z
+  .string()
+  .regex(gmtOffsetRegex, {
+    message: "Must be a valid GMT offset between -12 and +14 (e.g. '+5.5', '-3.75')"
+  }) as unknown as ZodType<GMTOffset>;
 const ConfigSchema = z.object({
   owner: z.object({
     id: z.string(),
@@ -15,20 +23,27 @@ const ConfigSchema = z.object({
     })
   }),
   features: z.object({
-    media: z.boolean(),
-    echoes: z.boolean()
+    media: z.boolean()
   }),
   introduction: z.record(z.string(), z.string()),
-  boundaries: z.record(z.string(), z.string()),
+  timezone: z.object({
+    name: z.string(),
+    gmtOffset: gmtOffsetSchema
+  }),
+  boundaries: z.record(z.string(), z.string())
 });
 
 export default function getConfig(): Config {
-  let validatedConfig: Config;
+  const configPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config.json');
+  const examplePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../example.config.json');
+  if (!fs.existsSync(configPath)) {
+    console.warn('[config] Copying example config...');
+    fs.copyFileSync(examplePath, configPath);
+  }
   try {
-    validatedConfig = ConfigSchema.parse(config) as Config;
+    return ConfigSchema.parse(JSON.parse(fs.readFileSync(configPath, 'utf-8')));
   } catch (e) {
-    console.error(`[config] Error loading your config: ${e}`);
+    console.error('[config] Failed to parse/validate config:\n' + e);
     process.exit(1);
   }
-  return validatedConfig;
-};
+}

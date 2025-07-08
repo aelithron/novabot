@@ -7,12 +7,12 @@
       "objective": "them",
       "possessive_determiner": "their",
       "possessive_pronoun": "theirs",
-      "reflexive": "themselves"
+      "reflexive": "themselves",
+      "useAre": true
     }
   },
   "features": {
-    "media": true,
-    "echoes": true
+    "media": false
   },
   "introduction": {
     "𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲": "June 16 (15 y/o)",
@@ -24,6 +24,10 @@
     "𝐅𝐚𝐧𝐝𝐨𝐦𝐬": "Murder Drones, Genshin Impact, Life Series",
     "𝐌𝐮𝐬𝐢𝐜": "Derivakat, AJR, Cavetown",
     "𝐄𝐱𝐭𝐫𝐚 𝐍𝐨𝐭𝐞𝐬": "I have ADHD and social anxiety, so I may not be very talkative!"
+  },
+  "timezone": {
+    "name": "Mountain Daylight Time",
+    "gmtOffset": "-6"
   },
   "boundaries": {
     "Ask to DM": "Please ask them before you send them a DM!",

@@ -28,6 +28,15 @@ Make sure to add your token and app ID into the marked places!
 ```sh
 
 ```
+### Other Installation Methods
+Anything other than Docker is not officially supported. However, you can DM me on Discord (@aelithron) and I will try to help.
+Some basic tips for setting it up:
+- Your platform must have Node.JS with NPM (I personally suggest version 21 or higher)
+- You must supply environment variables to the bot, namely BOT_TOKEN and CLIENT_ID, but also any Jellyfin configuration you use.
+- You must install typescript and tsx globally (`npm install --global typescript tsx`)
+- You must clean-install the bot's dependencies (`npm ci`)
+- For starting the bot, either run `npm run start` or `tsx index.ts --reload-cmds`
+- I recommend auto restarting when crashed, since many things can technically crash the bot and you don't want it to stay broken.
 ## Configuring
 Now, it's time to configure your bot! This is the final required step.
 In the original setup guide, your bot should have created a file called config.json with a bunch of options.
@@ -36,9 +45,14 @@ Here, you get to personalize the bot! Some options are documented below.
 This lets you tell the bot how to refer to you! You may know how to enter your pronouns here, but if not, no problem! You can get the options/info you need from [this link](https://en.pronouns.page/pronouns).
 ### Features
 This lets you enable different bot modules! Most of the features are documented near the top of this README.
-Some examples of modules are `media` (Jellyfin stuff, explained below) and `echoes`!
+The only currently configurable module is `media` (Jellyfin stuff, explained below), and it is automatically disabled.
 ### Introduction
 Enter information about yourself for the `/introduce` command. You get to put in a name and a value, which are directly added to the embed.
+### Timezone
+Type your timezone name and GMT offset following the format provided. For example, I am currently in Mountain Daylight Time with an offset of GMT-6.
+### Boundaries
+Works similarly to Introduction, except you write a boundary and an explanation of what it means.
+
 **Congrats!** You've finished configuring your bot. Continue on for extra features if you want, or enjoy the bot as it is!
 ## Jellyfin Setup
 Want to use the `/now-playing` command? You must have a Jellyfin server for this to be possible, but no worries! It's easy to set up.

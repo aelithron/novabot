@@ -16,13 +16,17 @@ export const data = new SlashCommandBuilder()
     option.setName('lyrics')
       .setDescription('Whether to include lyrics (if the playing content is music). Defaults to false.'));
 export async function execute(interaction: CommandInteraction) {
+  if (!config.features.media) {
+    interaction.reply('The `media` feature is disabled in my configuration!');
+    return;
+  }
   await interaction.deferReply();
   const info = await getInfo();
   if (!info.state || info.state === "failed-connect") {
     await interaction.editReply({ content: `${config.owner.name} isn't playing anything right now.` });
     if (info.state === "failed-connect") {
       console.error("[bot] Failed to connect to Jellyfin server.");
-      await interaction.followUp({ content: 'i couldn\'t find your Jellyfin server!', flags: MessageFlags.Ephemeral });
+      await interaction.followUp({ content: 'I couldn\'t find your Jellyfin server!', flags: MessageFlags.Ephemeral });
     }
     return;
   }

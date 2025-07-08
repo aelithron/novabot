@@ -51,8 +51,12 @@ export type Config = {
   }
   features: {
     media: boolean
-    echoes: boolean
   }
   introduction: { [key: string]: string }
+  timezone: {
+    name: string
+    gmtOffset: GMTOffset
+  }
   boundaries: { [key: string]: string }
 }
+export type GMTOffset = `+${number}` | `-${number}`;

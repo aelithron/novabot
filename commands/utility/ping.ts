@@ -9,5 +9,5 @@ export async function execute(interaction: CommandInteraction) {
 		await interaction.editReply(`Pong!\n-# websocket ping: ${interaction.client.ws.ping}ms\n-# roundtrip latency: unknown`);
 		return;
 	}
-	await interaction.editReply(`Pong!\n-# websocket ping: ${interaction.client.ws.ping}ms\n-# roundtrip latency: ${sent.resource.message.createdTimestamp - interaction.createdTimestamp}`);
+	await interaction.editReply(`Pong!\n-# websocket ping: ${interaction.client.ws.ping}ms\n-# roundtrip latency: ${sent.resource.message.createdTimestamp - interaction.createdTimestamp}ms`);
 };
