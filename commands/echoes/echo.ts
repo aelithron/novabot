@@ -12,7 +12,10 @@ export const data = new SlashCommandBuilder()
       .setAutocomplete(true))
   .addUserOption(option =>
     option.setName('ping')
-      .setDescription('A user to ping in the echo'));
+      .setDescription('A user to ping in the echo'))
+  .addBooleanOption(option =>
+    option.setName('textonly')
+      .setDescription('Make me respond with the text echo even if I can embed'));
 export async function autocomplete(interaction: AutocompleteInteraction) {
   const focusedValue = interaction.options.getFocused();
   const choices = loadEchoList();
@@ -24,6 +27,7 @@ export async function autocomplete(interaction: AutocompleteInteraction) {
 export async function execute(interaction: CommandInteraction) {
   const pingUser = (interaction.options as CommandInteractionOptionResolver).getUser('ping');
   const echoId = (interaction.options as CommandInteractionOptionResolver).getString('id');
+  const textOnly = (interaction.options as CommandInteractionOptionResolver).getBoolean('textonly');
   if (!echoId) {
     await interaction.reply({ content: 'You must provide an echo ID!', flags: MessageFlags.Ephemeral });
     return;
@@ -33,7 +37,7 @@ export async function execute(interaction: CommandInteraction) {
     await interaction.reply({ content: `Echo "${echoId}" not found!`, flags: MessageFlags.Ephemeral });
     return;
   }
-  if (interaction.appPermissions.has('EmbedLinks') && echoModule.echoEmbed) {
+  if (interaction.appPermissions.has('EmbedLinks') && echoModule.echoEmbed && textOnly != true) {
     const echoEmbed: EchoEmbed = echoModule.echoEmbed(interaction);
     echoEmbed.embed
       .setTimestamp()

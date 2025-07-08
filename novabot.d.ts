@@ -53,11 +53,6 @@ export type Config = {
     media: boolean
     echoes: boolean
   }
-  introduction: {
-    fields: {
-      name: string
-      value: string
-    }[]
-  }
+  introduction: { [key: string]: string }
   boundaries: string[]
 }

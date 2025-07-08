@@ -16,18 +16,10 @@ const ConfigSchema = z.object({
   }),
   features: z.object({
     media: z.boolean(),
-    echoes: z.boolean(),
-    weather: z.boolean()
+    echoes: z.boolean()
   }),
-  introduction: z.object({
-    boundaries: z.string().array(),
-    fields: z.array(
-      z.object({
-        name: z.string(),
-        value: z.string()
-      })
-    )
-  })
+  introduction: z.record(z.string(), z.string()),
+  boundaries: z.string().array(),
 });
 
 export default function getConfig(): Config {
