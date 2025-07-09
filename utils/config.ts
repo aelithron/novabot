@@ -34,11 +34,12 @@ const ConfigSchema = z.object({
 });
 
 export default function getConfig(): Config {
-  const configPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config/config.json');
-  const examplePath = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config/example.config.json');
+  const configFolder = path.join(path.dirname(fileURLToPath(import.meta.url)), '../config');
+  const configPath = path.join(configFolder, 'config.json');
   if (!fs.existsSync(configPath)) {
     console.warn('[config] Copying example config...');
-    fs.copyFileSync(examplePath, configPath);
+    if (!fs.existsSync(configFolder)) fs.mkdirSync(configFolder);
+    fs.copyFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '../example.config.json'), configPath);
   }
   try {
     return ConfigSchema.parse(JSON.parse(fs.readFileSync(configPath, 'utf-8')));

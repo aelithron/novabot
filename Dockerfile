@@ -1,6 +1,5 @@
 FROM node:24-alpine
 USER root
-WORKDIR /bot
 COPY package*.json ./
 RUN npm ci
 RUN npm install --global tsx
