@@ -39,7 +39,7 @@ services:
       #JELLYFIN_URL: "(insert Jellyfin URL here)"
       #JELLYFIN_USER_NAME: "admin"
     volumes:
-      - ./config:/bot/config
+      - ./config:/config
 ```
 Once this file is created, run `docker compose up -d`.
 #### With `docker run`
@@ -55,7 +55,7 @@ docker run -d \
   # -e JELLYFIN_API_KEY="(insert Jellyfin API key here)" \
   # -e JELLYFIN_URL="(insert Jellyfin URL here)" \
   # -e JELLYFIN_USER_NAME="admin" \
-  -v "$(pwd)/config:/bot/config" \
+  -v "$(pwd)/config:/config" \
   ghcr.io/aelithron/novabot:latest
 
 ```
