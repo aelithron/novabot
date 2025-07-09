@@ -3,11 +3,5 @@ USER root
 COPY package*.json ./
 RUN npm ci
 RUN npm install --global tsx
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 novabot
-COPY --chown=novabot:nodejs . .
-RUN mkdir config
-RUN chown --recursive novabot:nodejs config
-
-USER novabot
+COPY . .
 CMD ["tsx", "index.ts", "--reload-cmds"]
