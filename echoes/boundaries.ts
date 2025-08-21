@@ -8,7 +8,7 @@ export function echoEmbed(): EchoEmbed {
 	const embed = new EmbedBuilder()
 		.setColor(0x7932a8)
 		.setTitle(`⋆✦⋆ ${config.owner.name}'s Boundaries ⋆✦⋆`)
-		.setDescription(`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.objective} boundaries!`)
+		.setDescription(`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.possessive_determiner} boundaries!`)
 	const fields: RestOrArray<APIEmbedField> = [];
   for (const [key, value] of Object.entries(config.boundaries)) {
     fields.push({ name: key, value: value });
@@ -22,5 +22,5 @@ export function echoText(): string {
     fields = fields + `• ${key}: ${value}\n`
   }
 	return `⋆✦⋆ ${config.owner.name}'s Boundaries ⋆✦⋆\n` +
-		`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.objective} boundaries!\n` + fields;
+		`Hey, ${config.owner.name} asked me to remind you of ${config.owner.pronouns.possessive_determiner} boundaries!\n` + fields;
 };
