@@ -94,3 +94,5 @@ Want to use the `/now-playing` command? You must have a Jellyfin server for this
 5. Enter in the API key from step 3 and enter your server's URL in the correct fields.
 6. If your Jellyfin username is anything other than `admin` (or you don't want the bot spamming warnings), set the `JELLYFIN_USER_NAME` environment variable to your username.
 7. Finally, open your `config.json` and set `features/media` to `true`. Restart your bot, and Jellyfin is now working!
+
+*Want to check out the Slack version? [NovaBot Slack](https://github.com/aelithron/novabot-slack)*
